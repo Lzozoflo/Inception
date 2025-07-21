@@ -18,14 +18,14 @@ RUN apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copie le script d'entrée dans le conteneur
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY wordpress-entrypoint.sh /usr/local/bin/
 # Rend le script exécutable
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/wordpress-entrypoint.sh
 
 # Expose le port par défaut de PHP-FPM
 EXPOSE 9000
 
 # Définit le script d'entrée comme point d'entrée du conteneur
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/wordpress-entrypoint.sh"]
 # CMD vide car l'ENTRYPOINT gère le démarrage
 CMD []
