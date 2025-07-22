@@ -6,9 +6,10 @@ services:
       context: ./srcs/requirements/mariadb/
     container_name: container_mariadb
     restart: always
+    env_file: ".env"
     environment:
-      MYSQL_ROOT_PASSWORD: 'mot_de_passe_root'
       MYSQL_DATABASE: 'wordpress'
+      MYSQL_ROOT_PASSWORD: 'mot_de_passe_root'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'mot_de_passe_user'
     volumes:

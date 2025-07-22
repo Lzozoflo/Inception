@@ -28,4 +28,4 @@ EXPOSE 9000
 # Définit le script d'entrée comme point d'entrée du conteneur
 ENTRYPOINT ["/usr/local/bin/wordpress-entrypoint.sh"]
 # CMD vide car l'ENTRYPOINT gère le démarrage
-CMD []
+CMD ["yes"]

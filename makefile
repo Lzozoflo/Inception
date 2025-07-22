@@ -7,18 +7,23 @@ psa		:
 
 up		: cleardata
 	docker compose up --build -d
-dup		: cleardata
-	docker compose up --build
 down 	:
 	docker compose stop && docker compose down -v
-
 re		:	down up
-dre		:	down dup
-#debug
+
+
+
 
 
 cleardata :
 	sudo rm -rf ~/data/db/*
+
+#debug
+
+dup		: cleardata
+	docker compose up --build
+
+dre		:	down dup
 
 ## to go in the docker
 inm		:
