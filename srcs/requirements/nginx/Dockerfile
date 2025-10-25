@@ -1,15 +1,14 @@
 
 #FROM = SYSTEM 
-
-FROM debian:bullseye
-
-
-# RUN = image build cmd
+FROM debian:Bookworm
 
 ## we need to update and upgrade (-y auto accept y/n) before to do somethink
 RUN apt update -y
-## install nginx
 RUN apt install nginx -y
+
+# Copie conf_file for nginx
+# COPY nginx.conf /etc/nginx/nginx.conf
+
 
 
 # CMD = default cmd on "docker run <image name> <default/cmd>" if no cmd added
@@ -17,6 +16,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 
+# # EXPOSE = port to the host system
+# EXPOSE 80
 
 
 
@@ -29,9 +30,6 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 
-
-# # Copie le fichier de configuration Nginx dans le conteneur
-# COPY nginx.conf /etc/nginx/sites-available/default
 
 # # Active la configuration par défaut
 # RUN rm /etc/nginx/sites-enabled/default && \
@@ -39,6 +37,3 @@ CMD ["nginx", "-g", "daemon off;"]
 
 # # /etc/nginx/nginx.conf ## tcl
 
-
-# # EXPOSE = port to the host system
-# EXPOSE 80

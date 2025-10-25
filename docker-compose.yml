@@ -1,19 +1,19 @@
  
 services:
-  # Maria-db
-  db:
-    build:
-      context: ./srcs/requirements/mariadb/
-    container_name: container_mariadb
-    restart: always
-    env_file: ".env"
-    environment:
-      MYSQL_DATABASE: 'wordpress'
-      MYSQL_ROOT_PASSWORD: 'mot_de_passe_root'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'mot_de_passe_user'
-    volumes:
-      - ~/data/db:/var/lib/mysql
+  # # Maria-db
+  # db:
+  #   build:
+  #     context: ./srcs/requirements/mariadb/
+  #   container_name: container_mariadb
+  #   restart: always
+  #   env_file: ".env"
+  #   environment:
+  #     MYSQL_DATABASE: 'wordpress'
+  #     MYSQL_ROOT_PASSWORD: 'mot_de_passe_root'
+  #     MYSQL_USER: 'user'
+  #     MYSQL_PASSWORD: 'mot_de_passe_user'
+  #   volumes:
+  #     - ~/data/db:/var/lib/mysql
 
   # # WordPress / PHP-FPM
   # wordpress:
@@ -26,15 +26,15 @@ services:
   #   depends_on:
   #     - db
 
-  # # Nginx
-  # nginx:
-  #   build:
-  #     context: ./srcs/requirements/nginx/
-  #   container_name: container_nginx
-  #   restart: always
-  #   ports:
-  #     - "8080:80"
-  #   volumes:
-  #     - ~/data/wp:/var/www/html
-  #   depends_on:
-  #     - wordpress
+  # Nginx
+  nginx:
+    build:
+      context: ./srcs/requirements/nginx/
+    container_name: container_nginx
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ~/data/wp:/var/www/html
+    depends_on:
+      - wordpress
