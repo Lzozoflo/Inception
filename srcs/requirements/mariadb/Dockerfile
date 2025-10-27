@@ -1,3 +1,3 @@
 
 #FROM = SYSTEM 
-FROM debian:Bookworm
+FROM debian:bookworm

@@ -1,6 +1,6 @@
 
 #FROM = SYSTEM 
-FROM debian:Bookworm
+FROM debian:bookworm
 
 ## we need to update and upgrade (-y auto accept y/n) before to do somethink
 RUN apt update -y
