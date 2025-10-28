@@ -1,47 +1,62 @@
 
+FROM		:= -f srcs/docker-compose.yml
+NPD			:= --no-print-directory
+M			:= $(MAKE) $(NPD)
+
 
 # use docker compose for 'build' all images to 'run -d'
-up		: cleardata
-	docker compose up --build -d
+up		: 
+	docker compose $(FROM) build 
+	docker compose $(FROM) up -d
+	@$(M) show-images
+	@$(M) clear
 
 # use docker compose for 'stop' and down les volume
 down 	:
-	docker compose stop && docker compose down -v
+	docker compose $(FROM) stop && docker compose $(FROM) down -v
+
+
 
 # use other makefile cmd to finish all runtime proc and creat all again
-re		:	down up
+re		:	cleardata down up
 
 
 
-# rm l'emplacement des volume
-cleardata :
+
+# rm all volume
+cleardata	: clear
 	sudo rm -rf ~/data/db/*
 
+# rm images useless
+clear		: 
+	@docker image prune -f
 
 
+#####################################
+#									#
+#				Debug				#		
+#									#
+#####################################
 
 
-
-
-
-#debug
+IMAGE_IDS	:= $(shell docker images | awk 'NR>1 {print $$3}')
+show-images:
+	@echo "Liste des IMAGE IDs :"
+	@echo "$(IMAGE_IDS)"
 
 dup		: cleardata
 	docker compose up --build
 
 dre		:	down dup
 
-# cmd docker use for see if ur images is up is close exited (to manual delete)
-psa		:
-	docker ps -a
-
-# cmd docker use for see if what images u creat (to manual delete) docker rmi 
-images		:
+view	:
+	docker ps -a;
 	docker images
+
 
 #########################################
 #										#
-#			go in the docker			#		
+#			go in the docker			#
 #										#
 #########################################
 
