@@ -49,9 +49,14 @@ dup		: cleardata
 
 dre		:	down dup
 
-view	:
+psa		:
 	docker ps -a;
+images		:
 	docker images
+
+view	:
+	@$(M) psa
+	@$(M) images
 
 
 #########################################
