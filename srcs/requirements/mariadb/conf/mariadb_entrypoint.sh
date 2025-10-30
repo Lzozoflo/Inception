@@ -4,7 +4,7 @@ set -e
 echo "[INFO] Initialisation de MariaDB..."
 
 # Var d'env attendues :
-#   MYSQL_DATABASE, MYSQL_ROOT_PASSWORD, MYSQL_ADMYN_USER, MYSQL_ADMYN_PASSWORD, MYSQL_NOT_ADMYN_USER, MYSQL_NOT_ADMYN_PASSWORD
+#   MYSQL_DATABASE, MYSQL_ADMYN_USER, MYSQL_ADMYN_PASSWORD, MYSQL_NOT_ADMYN_USER, MYSQL_NOT_ADMYN_PASSWORD
 
 # Démarre le service en arrière-plan pour initialiser la DB
 service mariadb start

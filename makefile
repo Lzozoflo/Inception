@@ -6,7 +6,7 @@ M			:= $(MAKE) $(NPD)
 
 # use docker compose for 'build' all images to 'run -d'
 up		: 
-	docker compose $(FROM) build 
+	docker compose $(FROM) build
 	docker compose $(FROM) up -d
 	@$(M) show-images
 	@$(M) clear

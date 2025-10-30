@@ -3,11 +3,14 @@
 FROM debian:bookworm
 
 
+## we need to update and upgrade (-y auto accept y/n) before to do somethink
 RUN     apt-get update -y && apt-get upgrade -y
+
 
 RUN     apt-get install mariadb-server -y
 
-RUN     apt-get autoclean
+
+RUN     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY    ./conf/mariadb_entrypoint.sh mariadb_entrypoint.sh 
 RUN     chmod +x mariadb_entrypoint.sh
