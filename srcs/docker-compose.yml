@@ -1,3 +1,4 @@
+# image: name:1.0   # <-- tag fixe
  
 services:
   # Maria-db
@@ -5,45 +6,34 @@ services:
     build:
       context: ./requirements/mariadb/
       dockerfile: Dockerfile
-    # image: mariadb:1.0   # <-- tag fixe
-
     container_name: container_mariadb
-    
-    environment:
-      MYSQL_DATABASE: 'WordPress'
-      MYSQL_ROOT_PASSWORD: '1234'
-      MYSQL_ADMYN_USER: 'admyn'
-      MYSQL_ADMYN_PASSWORD: '1234'
-      MYSQL_NOT_ADMYN_USER: 'notadmyn'
-      MYSQL_NOT_ADMYN_PASSWORD: '1234'
-
     ports:
       - "3306:3306"
-    # restart: always
-    # env_file: ".env"
-    # volumes:
-    #   - ~/data/db:/var/lib/mysql
+    restart: always
+    env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
+    volumes:
+      - ~/data/db:/var/lib/mysql
 
-  # # WordPress / PHP-FPM
-  # wordpress:
-  #   build:
-  #     context: ./requirements/wordpress/
-  #   container_name: container_wordpress_php_fpm
-  #   restart: always
-  #   volumes:
-  #     - ~/data/wp:/var/www/html
-  #   depends_on:
-  #     - db
+  # WordPress / PHP-FPM
+  wordpress:
+    build:
+      context: ./requirements/wordpress/
+    container_name: container_wordpress_php_fpm
+    restart: always
+    volumes:
+      - ~/data/wp:/var/www/html
+    depends_on:
+      - db
 
   # Nginx
-  # nginx:
-  #   build:
-  #     context: ./requirements/nginx/
-  #   container_name: container_nginx
-  #   restart: always
-  #   ports:
-  #     - "443:443"
-  #   volumes:
-  #     - ~/data/wp:/var/www/html
-  #   # depends_on:
-  #   #   - wordpress
+  nginx:
+    build:
+      context: ./requirements/nginx/
+    container_name: container_nginx
+    restart: always
+    ports:
+      - "443:443"
+    volumes:
+      - ~/data/wp:/var/www/html
+    depends_on:
+      - wordpress

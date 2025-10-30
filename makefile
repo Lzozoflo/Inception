@@ -18,7 +18,7 @@ down 	:
 
 
 # use other makefile cmd to finish all runtime proc and creat all again
-re		:	cleardata down up
+re		:	 cleardata down up
 
 
 
@@ -28,7 +28,7 @@ cleardata	: clear
 	sudo rm -rf ~/data/db/*
 
 # rm images useless
-clear		: 
+clear		:
 	@docker image prune -f
 
 

@@ -3,8 +3,11 @@
 FROM debian:bookworm
 
 
-RUN     apt update -y;
-RUN     apt install mariadb-server -y
+RUN     apt-get update -y && apt-get upgrade -y
+
+RUN     apt-get install mariadb-server -y
+
+RUN     apt-get autoclean
 
 COPY    ./conf/mariadb_entrypoint.sh mariadb_entrypoint.sh 
 RUN     chmod +x mariadb_entrypoint.sh
