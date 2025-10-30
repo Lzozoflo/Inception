@@ -1,0 +1,2 @@
+Debian-based MySQL 8 images: The default configuration can be found in /etc/mysql/my.cnf, which may !includedir additional directories such as /etc/mysql/conf.d.
+

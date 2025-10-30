@@ -10,10 +10,13 @@ services:
     container_name: container_mariadb
     
     environment:
-      MYSQL_DATABASE: 'wordpress'
+      MYSQL_DATABASE: 'WordPress'
       MYSQL_ROOT_PASSWORD: '1234'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '1234'
+      MYSQL_ADMYN_USER: 'admyn'
+      MYSQL_ADMYN_PASSWORD: '1234'
+      MYSQL_NOT_ADMYN_USER: 'notadmyn'
+      MYSQL_NOT_ADMYN_PASSWORD: '1234'
+
     ports:
       - "3306:3306"
     # restart: always

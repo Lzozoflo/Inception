@@ -14,7 +14,7 @@ RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
 EXPOSE 3306
 
-# ENTRYPOINT [ "./mariadb_entrypoint.sh" ]
+ENTRYPOINT [ "./mariadb_entrypoint.sh" ]
 
 #en user mysql do thit CMD
 CMD ["mysqld_safe"]
