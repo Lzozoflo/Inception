@@ -25,15 +25,15 @@ services:
     depends_on:
       - db
 
-  # Nginx
-  nginx:
-    build:
-      context: ./requirements/nginx/
-    container_name: container_nginx
-    restart: always
-    ports:
-      - "443:443"
-    volumes:
-      - ~/data/wp:/var/www/html
-    depends_on:
-      - wordpress
+  # # Nginx
+  # nginx:
+  #   build:
+  #     context: ./requirements/nginx/
+  #   container_name: container_nginx
+  #   restart: always
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - ~/data/wp:/var/www/html
+  #   depends_on:
+  #     - wordpress
