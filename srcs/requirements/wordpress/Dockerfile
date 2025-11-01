@@ -7,17 +7,12 @@ FROM debian:bookworm
 RUN     apt-get update -y && apt-get upgrade -y
 
 
-RUN     apt-get install -y wget php-fpm php-mysql 
+RUN     apt-get install -y wget php-fpm 
 #for wp
-RUN     apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-gd
+# RUN     apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-gd php-mysql
 
 
 RUN     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-
-RUN     mkdir -p /var/www/html/
-# RUN     chown -R www-data:www-data /var/www/html
-# RUN     chmod -R 755 /var/www/html
 
 
 RUN     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

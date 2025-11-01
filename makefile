@@ -25,7 +25,7 @@ re		:	 cleardata down up
 
 # rm all volume
 cleardata	: clear
-	sudo rm -rf ~/data/db/*
+	sudo rm -rf /home/fcretin/data/*
 
 # rm images useless
 clear		:
