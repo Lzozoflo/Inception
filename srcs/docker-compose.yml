@@ -12,18 +12,18 @@ services:
     restart: always
     env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
     volumes:
-      - ~/data/db:/var/lib/mysql
+      - /home/fcretin/data/db:/var/lib/mysql
 
-  # WordPress / PHP-FPM
-  wordpress:
-    build:
-      context: ./requirements/wordpress/
-    container_name: container_wordpress_php_fpm
-    restart: always
-    volumes:
-      - ~/data/wp:/var/www/html
-    depends_on:
-      - db
+  # # WordPress / PHP-FPM
+  # wordpress:
+  #   build:
+  #     context: ./requirements/wordpress/
+  #   container_name: container_wordpress_php_fpm
+  #   restart: always
+  #   volumes:
+  #     - /home/fcretin/data/wp:/var/www/html
+  #   depends_on:
+  #     - db
 
   # # Nginx
   # nginx:
@@ -34,6 +34,6 @@ services:
   #   ports:
   #     - "443:443"
   #   volumes:
-  #     - ~/data/wp:/var/www/html
+  #     - /home/fcretin/data/wp:/var/www/html
   #   depends_on:
   #     - wordpress
