@@ -7,29 +7,35 @@ FROM debian:bookworm
 RUN     apt-get update -y && apt-get upgrade -y
 
 
-RUN     apt-get install wget -y
+RUN     apt-get install -y wget php-fpm php-mysql 
+#for wp
+RUN     apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-gd
 
 
 RUN     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-RUN     mkdir -p /var/www/html/ && cd /var/www/html/
-RUN     wget https://wordpress.org/latest.tar.gz
-RUN     tar -xvf latest.tar.gz
-RUN     mv wordpress/* /var/www/html/
-RUN     rm -rf /latest.tar.gz wordpress
-
-RUN     chown -R www-data:www-data /var/www/html
-RUN     chmod -R 755 /var/www/html
-
-COPY    ./conf/wordpress_entrypoint.sh wordpress_entrypoint.sh 
-RUN     chmod +x wordpress_entrypoint.sh
+RUN     mkdir -p /var/www/html/
+# RUN     chown -R www-data:www-data /var/www/html
+# RUN     chmod -R 755 /var/www/html
 
 
-EXPOSE 3306
+RUN     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN     chmod +x wp-cli.phar
+RUN     mv wp-cli.phar /usr/local/bin/wp
 
 
-ENTRYPOINT [ "./wordpress_entrypoint.sh" ]
+COPY    ./conf/wordpress_entrypoint.sh /usr/local/bin/wordpress_entrypoint.sh 
+RUN     chmod +x /usr/local/bin/wordpress_entrypoint.sh
+
+
+WORKDIR /var/www/html
+
+
+EXPOSE 9000
+
+
+ENTRYPOINT [ "wordpress_entrypoint.sh" ]
 
 #en user mysql do thit CMD
 CMD ["yes"]

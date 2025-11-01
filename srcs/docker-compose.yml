@@ -1,39 +1,42 @@
 # image: name:1.0   # <-- tag fixe
  
 services:
-  # # Maria-db
-  # db:
-  #   build:
-  #     context: ./requirements/mariadb/
-  #     dockerfile: Dockerfile
-  #   container_name: container_mariadb
-  #   ports:
-  #     - "3306:3306"
-  #   restart: always
-  #   env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
-  #   volumes:
-  #     - /home/fcretin/data/db:/var/lib/mysql
+  # Maria-db
+  db:
+    build:
+      context: ./requirements/mariadb/
+      dockerfile: Dockerfile
+    container_name: container_mariadb
+    env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/fcretin/data/db:/var/lib/mysql
 
-  # # WordPress / PHP-FPM
-  # wordpress:
+  # WordPress / PHP-FPM
+  wordpress:
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    container_name: container_wordpress_php_fpm
+    env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
+    restart: always
+    volumes:
+      - /home/fcretin/data/wp:/var/www/html
+    depends_on:
+      - db
+
+  # # Nginx
+  # nginx:
   #   build:
-  #     context: ./requirements/wordpress/
-  #   container_name: container_wordpress_php_fpm
+  #     context: ./requirements/nginx/
+  #     dockerfile: Dockerfile
+  #   container_name: container_nginx
   #   restart: always
+  #   ports:
+  #     - "443:443"
   #   volumes:
   #     - /home/fcretin/data/wp:/var/www/html
   #   depends_on:
-  #     - db
-
-  # Nginx
-  nginx:
-    build:
-      context: ./requirements/nginx/
-    container_name: container_nginx
-    restart: always
-    ports:
-      - "443:443"
-    volumes:
-      - /home/fcretin/data/wp:/var/www/html
-    # depends_on:
-    #   - wordpress
+  #     - wordpress
