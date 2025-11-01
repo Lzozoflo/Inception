@@ -84,7 +84,10 @@ inn		:
 #####################################
 
 ##
-debugs	: debugm debugw debugn
+debugs	: 
+	$(MAKE) $(NPD) debugm;
+	$(MAKE)	$(NPD) debugw;
+	$(MAKE) $(NPD) debugn;
 
 ### logs off wordpress container
 debugw	:

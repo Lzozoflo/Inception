@@ -24,7 +24,7 @@ fi
 service mariadb start
 
 
-# Si la base WordPress n'existe pas la créer
+# Si la base WordPress n'existe pas la créer (plus clair : line 42 - 40 help.txt)
 if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     echo "/n[INFO] Création de la base $MYSQL_DATABASE..."
     mysql -e "CREATE DATABASE $MYSQL_DATABASE;"
