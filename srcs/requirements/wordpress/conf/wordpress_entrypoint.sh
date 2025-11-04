@@ -19,10 +19,10 @@ fi
 if [ ! -f "wp-config.php" ]; then
     echo "[INFO] Create Config..."
     wp config create \
-    --dbname="${DB_NAME:-WordPress}" \
-    --dbuser="${DB_USER:-admyn}" \
-    --dbpass="${DB_PASS:-1234}" \
-    --dbhost="${DB_HOST:-db}" \
+    --dbname="${WP_DB_NAME:-WordPress}" \
+    --dbuser="${WP_DB_USER:-admin}" \
+    --dbpass="${WP_DB_PASS:-adminadmin}" \
+    --dbhost="${WP_DB_HOST:-db}" \
     --skip-check \
     --allow-root
 
@@ -36,6 +36,7 @@ if [ ! -f "wp-config.php" ]; then
     --skip-email \
     --allow-root
 
+    echo "[INFO] Finish Install WordPress..."
 else
     echo -n " already config."
 fi
@@ -43,4 +44,4 @@ fi
 echo "\n"
 
 
-# exec "$@"
+exec "$@"`

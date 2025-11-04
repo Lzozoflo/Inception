@@ -9,7 +9,7 @@ RUN     apt-get update -y && apt-get upgrade -y
 
 RUN     apt-get install -y wget php-fpm 
 #for wp
-# RUN     apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-gd php-mysql
+RUN     apt-get install -y php-cli php-mbstring php-xml php-curl php-zip php-gd php-mysql
 
 
 RUN     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,4 +33,4 @@ EXPOSE 9000
 ENTRYPOINT [ "wordpress_entrypoint.sh" ]
 
 #en user mysql do thit CMD
-CMD ["yes"]
+CMD ["yes "]

@@ -36,6 +36,9 @@ if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
 fi
 
 
+mysql -e "DROP USER 'PUBLIC'@'%'";
+
+
 # Stopper le service MariaDB lancé temporairement
 service mariadb stop
 

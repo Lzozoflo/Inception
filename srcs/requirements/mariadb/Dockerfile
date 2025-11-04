@@ -18,7 +18,8 @@ RUN mkdir -p /var/lib/mysql && \
     chmod 755 /var/lib/mysql
     
 
-COPY    ./conf/mariadb_entrypoint.sh mariadb_entrypoint.sh 
+COPY    ./conf/my.cnf                   /etc/mysql/my.cnf  
+COPY    ./conf/mariadb_entrypoint.sh    mariadb_entrypoint.sh 
 RUN     chmod +x mariadb_entrypoint.sh
 
 
