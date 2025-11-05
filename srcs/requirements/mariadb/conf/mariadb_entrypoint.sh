@@ -31,8 +31,6 @@ EOF
 
 fi
 
-# cat  /tmp/init.sql
-
 
 # Exécuter la commande CMD (par défaut : mysqld_safe)
 exec "$@"

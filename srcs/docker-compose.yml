@@ -2,48 +2,74 @@
  
 services:
   # Maria-db
-  db:
+  mariadb:
     build:
       context: ./requirements/mariadb/
       dockerfile: Dockerfile
     container_name: container_mariadb
+
     env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
-    restart: always
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
     ports:
       - "3306:3306"
+
+    restart: always
+    
     volumes:
       - /home/fcretin/data/db:/var/lib/mysql
     networks:
       - my_network
+
+
 
   # WordPress / PHP-FPM
   wordpress:
     build:
       context: ./requirements/wordpress/
       dockerfile: Dockerfile
+
     container_name: container_wordpress_php_fpm
+
     env_file: "../secret/.env_wp" # <-- that not the real secret... 
+
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
     restart: always
+
     volumes:
       - /home/fcretin/data/wp:/var/www/html
-    depends_on:
-      - db
     networks:
       - my_network
+
+
 
   # Nginx
   nginx:
     build:
       context: ./requirements/nginx/
       dockerfile: Dockerfile
+
     container_name: container_nginx
-    restart: always
+
     ports:
       - "443:443"
-    volumes:
-      - /home/fcretin/data/wp:/var/www/html
+    
     depends_on:
       - wordpress
+    
+    restart: always
+
+    volumes:
+      - /home/fcretin/data/wp:/var/www/html
   
 networks:
   my_network:

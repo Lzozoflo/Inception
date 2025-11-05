@@ -1,14 +1,11 @@
 #!/bin/bash
 set -e
 
-cd /var/www/html
-
-
-until ! nc -z db 3306; do
-  echo "En attente de la base de données..."
-  sleep 2
-done
-echo "Base de données disponible !"
+# until ! nc -z db 3306; do
+#   echo "En attente de la base de données..."
+#   sleep 2
+# done
+# echo "Base de données disponible !"
 
 
 # Si WordPress n'est pas encore téléchargé
