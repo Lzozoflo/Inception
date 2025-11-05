@@ -4,9 +4,16 @@ set -e
 cd /var/www/html
 
 
+until ! nc -z db 3306; do
+  echo "En attente de la base de données..."
+  sleep 2
+done
+echo "Base de données disponible !"
+
+
 # Si WordPress n'est pas encore téléchargé
 if [ ! -f "wp-settings.php" ]; then
-    echo "[INFO] WordPress install.."
+    echo "[INFO] WordPress downloading.."
     wp core download --allow-root
 else
     echo "[INFO] WordPress already downloaded..."
@@ -36,10 +43,9 @@ if [ ! -f "wp-config.php" ]; then
 
     echo "[INFO] Finish Install WordPress..."
 else
-    echo -n " already config."
+    echo "[INFO] already config."
 fi
 
-echo "\n"
 
 
-exec "$@"`
+exec "$@"
