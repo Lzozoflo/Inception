@@ -13,19 +13,23 @@ services:
       - "3306:3306"
     volumes:
       - /home/fcretin/data/db:/var/lib/mysql
+    networks:
+      - my_network
 
-  # # WordPress / PHP-FPM
-  # wordpress:
-  #   build:
-  #     context: ./requirements/wordpress/
-  #     dockerfile: Dockerfile
-  #   container_name: container_wordpress_php_fpm
-  #   env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
-  #   restart: always
-  #   volumes:
-  #     - /home/fcretin/data/wp:/var/www/html
-  #   depends_on:
-  #     - db
+  # WordPress / PHP-FPM
+  wordpress:
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    container_name: container_wordpress_php_fpm
+    env_file: "../secret/.env_mariadb" # <-- that not the real secret... 
+    restart: always
+    volumes:
+      - /home/fcretin/data/wp:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - my_network
 
   # # Nginx
   # nginx:
@@ -40,3 +44,6 @@ services:
   #     - /home/fcretin/data/wp:/var/www/html
   #   depends_on:
   #     - wordpress
+  
+networks:
+  my_network:

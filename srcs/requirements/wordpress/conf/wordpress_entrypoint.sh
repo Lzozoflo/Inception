@@ -4,14 +4,12 @@ set -e
 cd /var/www/html
 
 
-echo -n "[INFO]"
-
-
 # Si WordPress n'est pas encore téléchargé
 if [ ! -f "wp-settings.php" ]; then
+    echo "[INFO] WordPress install.."
     wp core download --allow-root
 else
-    echo -n " WordPress already downloaded..."
+    echo "[INFO] WordPress already downloaded..."
 fi
 
 
