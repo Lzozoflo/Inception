@@ -68,11 +68,11 @@ view	:
 
 ## docker exec -it its used to exec a cmd in the container here we use bash for seeing what working in
 inm		:
-	docker exec -it container_mariadb bash
+	docker exec -it mariadb bash
 inw		:
-	docker exec -it container_wordpress_php_fpm bash
+	docker exec -it wordpress bash
 inn		:
-	docker exec -it container_nginx bash
+	docker exec -it nginx bash
 
 
 
@@ -91,12 +91,12 @@ debugs	:
 
 ### logs off wordpress container
 debugw	:
-	docker logs container_wordpress_php_fpm
+	docker logs wordpress
 
 ### logs off mariadb container
 debugm	:
-	docker logs container_mariadb
+	docker logs mariadb
 
 ### logs off nginx container
 debugn	:
-	docker logs container_nginx
+	docker logs nginx

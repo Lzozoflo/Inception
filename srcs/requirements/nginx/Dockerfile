@@ -20,7 +20,7 @@ RUN     openssl x509 -req -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreates
 
 # Copie conf_file for nginx
 
-COPY    ./conf/server.conf /etc/nginx/conf.d
+COPY    ./conf/server.conf /etc/nginx/conf.d/.
 EXPOSE  443
 
 # CMD = default cmd on "docker run <image name> <default/cmd>" if no cmd added
