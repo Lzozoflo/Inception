@@ -33,4 +33,4 @@ EXPOSE 3306
 ENTRYPOINT [ "./mariadb_entrypoint.sh" ]
 
 #en user mysql do thit CMD
-CMD ["mysqld", "--defaults-file=/etc/mysql/oui.cnf", "--user=mysql", "--init-file=/tmp/init.sql"]
+CMD ["mysqld", "--defaults-file=/etc/mysql/oui.cnf", "--user=mysql", "--init-file=/var/lib/mysql/init.sql"]

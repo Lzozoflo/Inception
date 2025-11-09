@@ -9,6 +9,8 @@ echo "[INFO] Initialisation de MariaDB..."
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "[INFO] Installation de la base de données système MariaDB..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
+else
+    echo "[INFO] Installation système MariaDB deja faite..."
 fi
 
 
@@ -20,7 +22,7 @@ fi
 if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     echo "[INFO] Création de la base '$MYSQL_DATABASE' et des utilisateurs..."
 
-    cat > /tmp/init.sql <<EOF
+    cat > /var/lib/mysql/init.sql << EOF
 CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\`;
 CREATE USER IF NOT EXISTS '$MYSQL_ADMYN_USER'@'%' IDENTIFIED BY '$MYSQL_ADMYN_PASSWORD';
 CREATE USER IF NOT EXISTS '$MYSQL_NOT_ADMYN_USER'@'%' IDENTIFIED BY '$MYSQL_NOT_ADMYN_PASSWORD';
@@ -28,6 +30,9 @@ GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_ADMYN_USER'@'%';
 GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_NOT_ADMYN_USER'@'%';
 FLUSH PRIVILEGES;
 EOF
+
+else
+    echo "[INFO] La base '$MYSQL_DATABASE' est deja crée..."
 
 fi
 
