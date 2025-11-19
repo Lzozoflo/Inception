@@ -9,12 +9,11 @@ up		:
 	docker compose $(FROM) build
 	docker compose $(FROM) up -d
 	@$(M) show-images
-	@$(M) clear
+
 
 # use docker compose for 'stop' and down les volume
 down 	:
 	docker compose $(FROM) stop && docker compose $(FROM) down -v
-
 
 
 # use other makefile cmd to finish all runtime proc and creat all again
@@ -28,7 +27,8 @@ cleardata	: clear
 	sudo rm -rf /home/fcretin/data/*
 
 # rm images useless
-clear		:
+clear		: down
+	@docker system prune -f
 	@docker image prune -f
 
 
@@ -39,10 +39,10 @@ clear		:
 #####################################
 
 
-IMAGE_IDS	:= $(shell docker images | awk 'NR>1 {print $$3}')
+IMAGE_IDS	:= $(shell docker images | awk 'NR>1 {print $$2}')
 show-images:
-	@echo "Liste des IMAGE IDs :"
-	@echo "$(IMAGE_IDS)"
+	@echo "Liste des IMAGE (ID) :"
+	@echo "\t$(IMAGE_IDS)"
 
 dup		: cleardata
 	docker compose up --build
@@ -51,6 +51,7 @@ dre		:	down dup
 
 psa		:
 	docker ps -a;
+	
 images		:
 	docker images
 
