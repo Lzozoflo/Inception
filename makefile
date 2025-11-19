@@ -2,6 +2,7 @@
 FROM		:= -f srcs/docker-compose.yml
 NPD			:= --no-print-directory
 M			:= $(MAKE) $(NPD)
+IMAGE_IDS	:= $(shell docker images | awk 'NR>1 {print $$2}')
 
 
 # use docker compose for 'build' all images to 'run -d'
@@ -11,25 +12,26 @@ up		:
 	@$(M) show-images
 
 
-# use docker compose for 'stop' and down les volume
+# use docker compose for 'stop' and 'down' + volume
 down 	:
-	docker compose $(FROM) stop && docker compose $(FROM) down -v
+	docker compose $(FROM) stop
+	docker compose $(FROM) down -v
 
 
 # use other makefile cmd to finish all runtime proc and creat all again
 re		:	 cleardata down up
 
 
-
-
 # rm all volume
 cleardata	: clear
 	sudo rm -rf /home/fcretin/data/*
+
 
 # rm images useless
 clear		: down
 	@docker system prune -f
 	@docker image prune -f
+	docker rmi $(IMAGE_IDS)
 
 
 #####################################
@@ -39,21 +41,25 @@ clear		: down
 #####################################
 
 
-IMAGE_IDS	:= $(shell docker images | awk 'NR>1 {print $$2}')
 show-images:
 	@echo "Liste des IMAGE (ID) :"
 	@echo "\t$(IMAGE_IDS)"
 
+
 dup		: cleardata
 	docker compose up --build
 
+
 dre		:	down dup
+
 
 psa		:
 	docker ps -a;
-	
+
+
 images		:
 	docker images
+
 
 view	:
 	@$(M) psa
@@ -70,12 +76,14 @@ view	:
 ## docker exec -it its used to exec a cmd in the container here we use bash for seeing what working in
 inm		:
 	docker exec -it mariadb bash
+
+
 inw		:
 	docker exec -it wordpress bash
+
+
 inn		:
 	docker exec -it nginx bash
-
-
 
 
 #####################################
@@ -90,13 +98,16 @@ debugs	:
 	$(MAKE)	$(NPD) debugw;
 	$(MAKE) $(NPD) debugn;
 
+
 ### logs off wordpress container
 debugw	:
 	docker logs wordpress
 
+
 ### logs off mariadb container
 debugm	:
 	docker logs mariadb
+
 
 ### logs off nginx container
 debugn	:
